@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Christine's Swear Jar</title>
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			h1 {
+				font-family: "Shadows Into Light", cursive;
+				text-align: center;
+			}
+			body {
+				font-family: "Courier New";
+				text-align: center;
+				margin: 0;
+				height: 100vh;
+				overflow: hidden; /* Prevent scrolling */
+				position: relative; /* Ensure that the circle is positioned relative to the body */
+				background-color: #f0f0f0;
+			}
+			#counter {
+				font-size: 36px;
+				margin: 20px;
+			}
+			button {
+				font-family: "Courier New";
+				padding: 10px 20px;
+				font-size: 20px;
+				cursor: pointer;
+				margin: 20px;
+			}
+			.circle {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				position: absolute;
+				top: 0;
+				transform: translateX(-50%);
+				opacity: 0;
+				transition: opacity 0.5s;
+			}
+			.drop {
+				animation: drop 2s forwards;
+				opacity: 1;
+			}
+			@keyframes drop {
+				from {
+					top: 0;
+					opacity: 1;
+				}
+				to {
+					top: calc(100vh - 50px); /* Height of the circle */
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>This is Christine's Swear Jar</h1>
+
+		<div id="counter"></div>
+		<button onclick="increment()">Increment</button>
+
+		<script>
+			// Array of pastel colors because I like my circles those colors hehe
+			const pastelColors = [
+				"#a2c2e1", // Pastel Blue
+				"#d8a6d8", // Pastel Purple
+				"#f9c6d7", // Pastel Pink
+				"#B3CEE5", // Serenity
+				"F7CAC9", // Rose Quartz (Seventeen woo)
+			];
+
+			function getRandomPastelColor() {
+				return pastelColors[
+					Math.floor(Math.random() * pastelColors.length)
+				];
+			}
+
+			function getRandomXPosition() {
+				// want to narrow the X group position
+				const minX = window.innerWidth / 2 - window.innerWidth / 8;
+				const maxX = window.innerWidth / 2 + window.innerWidth / 8;
+				return Math.random() * (maxX - minX) + minX;
+			}
+
+			function increment() {
+				fetch("/api/increment")
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						const value = data.value;
+						document.getElementById("counter").innerText = value;
+					})
+					.catch((error) => {
+						console.error(
+							"There was a problem with the fetch operation when incremeneting:",
+							error
+						);
+					});
+
+				/* Animations Stuff */
+
+				// Create a new circle
+				const circle = document.createElement("div");
+				circle.className = "circle";
+
+				// Set a random pastel color
+				circle.style.backgroundColor = getRandomPastelColor();
+
+				// Set a random horizontal position
+				circle.style.left = `${getRandomXPosition()}px`;
+
+				document.body.appendChild(circle);
+
+				// Trigger the animation
+				setTimeout(() => {
+					circle.classList.add("drop");
+				}, 10); // Small delay to ensure the element is added to the DOM before animation
+			}
+
+			window.onload = function () {
+				fetch("/api/gettotal")
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						const value = data.value;
+						document.getElementById("counter").innerText = value;
+					})
+					.catch((error) => {
+						console.error(
+							"There was a problem with the fetch operation when loading the page:",
+							error
+						);
+					});
+			};
+		</script>
+	</body>
+</html>
