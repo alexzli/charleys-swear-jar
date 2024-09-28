@@ -1,23 +1,38 @@
 package handlers
 
 import (
-	"christineswearjar/internal/services"
+	"christineswearjar/internal/pkg"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 )
 
-func GetIncrementHandler(client *services.SpreadsheetClient) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-        newValue := client.IncrementTotal()
+func IncrementTotal() int {
+	globals, err := pkg.GetGlobals()
+	if err != nil {
+		log.Fatalf("err: %v", err)
+	}
 
-		w.Header().Set("Content-Type", "application/json")
-		data := map[string]string{"value": fmt.Sprintf("%d", newValue)}
-		jsonData, err := json.Marshal(data)
-		if err != nil {
-			http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
-			return
-		}
-		w.Write(jsonData)
-    }
+	globals.Total += 1
+	out := globals.Total
+	err = pkg.WriteGlobals(globals)
+	if err != nil {
+		log.Fatalf("err: %v", err)
+	}
+
+	return out
+}
+
+func IncrementHandler(w http.ResponseWriter, r *http.Request) {
+	newValue := IncrementTotal()
+
+	w.Header().Set("Content-Type", "application/json")
+	data := map[string]string{"value": fmt.Sprintf("%d", newValue)}
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonData)
 }
