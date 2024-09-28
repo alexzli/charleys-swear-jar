@@ -24,8 +24,16 @@ func IncrementTotal() int {
 	return out
 }
 
+func AppendIncrementAction() {
+	err := pkg.AppendIncrementAction()
+	if err != nil {
+		log.Fatalf("err: %v", err)
+	}
+}
+
 func IncrementHandler(w http.ResponseWriter, r *http.Request) {
 	newValue := IncrementTotal()
+	AppendIncrementAction()
 
 	w.Header().Set("Content-Type", "application/json")
 	data := map[string]string{"value": fmt.Sprintf("%d", newValue)}
