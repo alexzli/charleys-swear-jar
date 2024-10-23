@@ -59,6 +59,23 @@
 					opacity: 1;
 				}
 			}
+
+			.stats-container {
+				display: flex; /* To arrange the items side by side */
+				justify-content: center;
+				gap: 150px; /* Optional: adds space between the two items */
+			}
+			.stats {
+				display: flex;
+				flex-direction: column; /* Ensures the content inside each item is vertical */
+			}
+			.stats-text {
+				font-size: 20px;
+				font-weight: 600;
+			}
+			.stats-value {
+				font-size: 20px;
+			}
 		</style>
 	</head>
 
@@ -66,6 +83,16 @@
 		<h1>This is Christine's Swear Jar</h1>
 
 		<div id="counter"></div>
+		<div class="stats-container">
+			<div class="stats">
+				<div class="stats-text">past week</div>
+				<div class="stats-value" id="past-week-counter"></div>
+			</div>
+			<div class="stats">
+				<div class="stats-text">yesterday</div>
+				<div class="stats-value" id="yesterday-counter"></div>
+			</div>
+		</div>
 		<button onclick="increment()">Increment</button>
 
 		<script>
@@ -148,6 +175,27 @@
 							error
 						);
 					});
+
+				fetch("/api/getstats")
+					.then((response) => {
+						if (!response.ok) {
+							throw new Error("Network response was not ok");
+						}
+						return response.json();
+					})
+					.then((data) => {
+						const pastweekValue = data.pastweek;
+						const yesterdayValue = data.yesterday;
+
+						document.getElementById("past-week-counter").innerText = pastweekValue
+						document.getElementById("yesterday-counter").innerText = yesterdayValue
+					})
+					.catch((error) => {
+						console.error(
+							"There was a problem with the fetch operation when loading the page:",
+							error
+						);
+					})
 			};
 		</script>
 	</body>

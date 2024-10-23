@@ -18,11 +18,20 @@ func main() {
     http.HandleFunc("/", handlers.ServeIndexHTML)
     http.HandleFunc("/api/increment", handlers.IncrementHandler)
     http.HandleFunc("/api/gettotal", handlers.GetTotalHandler)
+    statsHandler, err := handlers.MakeGetStatsHandler()
+    if err != nil{
+        fmt.Printf("oops server broke\n")
+        fmt.Printf("error: %v\n", err)
+    }
+    http.HandleFunc("/api/getstats", statsHandler)
 
     addr := "localhost:8080"
+
+    fmt.Printf("server start\n")
     err = http.ListenAndServe(addr, nil)
     if err != nil {
         fmt.Printf("oops server broke\n")
         fmt.Printf("error: %v\n", err)
+        return
     }
 }
