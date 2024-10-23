@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Increment Access</title>
+    </head>
+    <body>
+        <div>you now have perms</div>
+
+        <script>
+            window.onload = function () {
+                const futureDate = new Date();
+                futureDate.setFullYear(futureDate.getFullYear() + 10);
+                document.cookie = "incrementAccess=true; path=/; expires=" + futureDate.toUTCString();
+            };
+        </script>
+    </body>
+</html>
+
+    

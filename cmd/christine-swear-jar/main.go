@@ -16,6 +16,7 @@ func main() {
     }
 
     http.HandleFunc("/", handlers.ServeIndexHTML)
+    http.HandleFunc("/login", handlers.ServeAuthHTML)
     http.HandleFunc("/api/increment", handlers.IncrementHandler)
     http.HandleFunc("/api/gettotal", handlers.GetTotalHandler)
     statsHandler, err := handlers.MakeGetStatsHandler()

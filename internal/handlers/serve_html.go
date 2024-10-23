@@ -10,3 +10,7 @@ func ServeIndexHTML(w http.ResponseWriter, r *http.Request) {
 
     http.ServeFile(w, r, "web/index.html")
 }
+
+func ServeAuthHTML(w http.ResponseWriter, r *http.Request) {
+    http.ServeFile(w, r, "web/auth.html")
+}

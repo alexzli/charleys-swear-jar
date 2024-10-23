@@ -93,7 +93,7 @@
 				<div class="stats-value" id="yesterday-counter"></div>
 			</div>
 		</div>
-		<button onclick="increment()">Increment</button>
+		<button id="increment-button" onclick="increment()"></button>
 
 		<script>
 			// Array of pastel colors because I like my circles those colors hehe
@@ -118,24 +118,36 @@
 				return Math.random() * (maxX - minX) + minX;
 			}
 
+			// a very nonsecure way to do user authorization
+			function verifyCookie(cookie) {
+				const parts = cookie.split("=");
+				if ((parts.length === 2) && (parts[0] === "incrementAccess") && (parts[1] === "true")) {
+					return true
+				}
+
+				return false
+			}
+
 			function increment() {
-				fetch("/api/increment")
-					.then((response) => {
-						if (!response.ok) {
-							throw new Error("Network response was not ok");
-						}
-						return response.json();
-					})
-					.then((data) => {
-						const value = data.value;
-						document.getElementById("counter").innerText = value;
-					})
-					.catch((error) => {
-						console.error(
-							"There was a problem with the fetch operation when incremeneting:",
-							error
-						);
-					});
+				if (verifyCookie(document.cookie)) {
+					fetch("/api/increment")
+						.then((response) => {
+							if (!response.ok) {
+								throw new Error("Network response was not ok");
+							}
+							return response.json();
+						})
+						.then((data) => {
+							const value = data.value;
+							document.getElementById("counter").innerText = value;
+						})
+						.catch((error) => {
+							console.error(
+								"There was a problem with the fetch operation when incremeneting:",
+								error
+							);
+						});
+				}
 
 				/* Animations Stuff */
 
@@ -196,6 +208,12 @@
 							error
 						);
 					})
+
+				if (verifyCookie(document.cookie)) {
+					document.getElementById("increment-button").innerText = "Increment";
+				} else {
+					document.getElementById("increment-button").innerText = "Drop Ball";
+				}
 			};
 		</script>
 	</body>
