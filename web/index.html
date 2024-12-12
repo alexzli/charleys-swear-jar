@@ -177,6 +177,14 @@
 			}
 
 			window.onload = function () {
+				// adapt page for mobile devices
+				if (window.innerWidth < 768) {
+					statsContainer = document.querySelector(".stats-container");
+					statsContainer.style.flexDirection = "column";
+					statsContainer.style.alignItems = "center";
+					statsContainer.style.gap = "50px";
+				}
+
 				fetch("/api/gettotal")
 					.then((response) => {
 						if (!response.ok) {
