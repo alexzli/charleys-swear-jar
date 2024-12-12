@@ -8,20 +8,14 @@ import (
 	"net/http"
 )
 
-func GetTotal() int {
+func GetTotalHandler(w http.ResponseWriter, r *http.Request) {
 	globals, err := pkg.GetGlobals()
 	if err != nil {
 		log.Fatalf("err: %v", err)
 	}
 
-	return globals.Total
-}
-
-func GetTotalHandler(w http.ResponseWriter, r *http.Request) {
-	currentCellValue := GetTotal()
-
 	w.Header().Set("Content-Type", "application/json")
-	data := map[string]string{"value": fmt.Sprintf("%d", currentCellValue)}
+	data := map[string]string{"total": fmt.Sprintf("%d", globals.Total), "today": fmt.Sprintf("%d", globals.Today)}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)

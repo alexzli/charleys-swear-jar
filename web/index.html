@@ -68,6 +68,7 @@
 			.stats {
 				display: flex;
 				flex-direction: column; /* Ensures the content inside each item is vertical */
+				width: 150px;
 			}
 			.stats-text {
 				font-size: 20px;
@@ -91,6 +92,10 @@
 			<div class="stats">
 				<div class="stats-text">yesterday</div>
 				<div class="stats-value" id="yesterday-counter"></div>
+			</div>
+			<div class="stats">
+				<div class="stats-text">today</div>
+				<div class="stats-value" id="today-counter"></div>
 			</div>
 		</div>
 		<button id="increment-button" onclick="increment()"></button>
@@ -138,8 +143,10 @@
 							return response.json();
 						})
 						.then((data) => {
-							const value = data.value;
-							document.getElementById("counter").innerText = value;
+							const total = data.total;
+							const today = data.today;
+							document.getElementById("counter").innerText = total;
+							document.getElementById("today-counter").innerText = today;
 						})
 						.catch((error) => {
 							console.error(
@@ -178,8 +185,10 @@
 						return response.json();
 					})
 					.then((data) => {
-						const value = data.value;
-						document.getElementById("counter").innerText = value;
+						const total = data.total;
+						const today = data.today;
+						document.getElementById("counter").innerText = total;
+						document.getElementById("today-counter").innerText = today;
 					})
 					.catch((error) => {
 						console.error(

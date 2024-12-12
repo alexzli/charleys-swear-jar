@@ -11,6 +11,7 @@ var globalsMutex sync.Mutex
 
 type Globals struct {
 	Total int `json:"total"`
+	Today int `json:"today"`
 }
 
 func GetGlobals() (*Globals, error) {
@@ -59,4 +60,19 @@ func WriteGlobals(globals *Globals) error {
 	}
 
 	return nil
-} 
+}
+
+func ResetToday() error {
+	globals, err := GetGlobals()
+	if err != nil {
+		return err
+	}
+
+	globals.Today = 0
+	err = WriteGlobals(globals)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

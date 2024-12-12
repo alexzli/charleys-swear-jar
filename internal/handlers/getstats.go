@@ -32,6 +32,12 @@ func MakeGetStatsHandler() (func(http.ResponseWriter, *http.Request), error) {
 				fmt.Printf("couldn't get increment stats in daily update\n")
 				continue
 			}
+
+			err = pkg.ResetToday()
+			if err != nil {
+				fmt.Printf("couldn't reset the 'today' stat in daily update\n")
+				continue
+			}
 		}
 	}()
 

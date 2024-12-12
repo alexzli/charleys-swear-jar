@@ -8,20 +8,20 @@ import (
 	"net/http"
 )
 
-func IncrementTotal() int {
+func IncrementTotal() *pkg.Globals {
 	globals, err := pkg.GetGlobals()
 	if err != nil {
 		log.Fatalf("err: %v", err)
 	}
 
 	globals.Total += 1
-	out := globals.Total
+	globals.Today += 1
 	err = pkg.WriteGlobals(globals)
 	if err != nil {
 		log.Fatalf("err: %v", err)
 	}
 
-	return out
+	return globals
 }
 
 func AppendIncrementAction() {
@@ -36,7 +36,7 @@ func IncrementHandler(w http.ResponseWriter, r *http.Request) {
 	AppendIncrementAction()
 
 	w.Header().Set("Content-Type", "application/json")
-	data := map[string]string{"value": fmt.Sprintf("%d", newValue)}
+	data := map[string]string{"total": fmt.Sprintf("%d", newValue.Total), "today": fmt.Sprintf("%d", newValue.Today)}
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
