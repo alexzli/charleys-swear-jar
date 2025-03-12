@@ -1,237 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Christine's Swear Jar</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charley's Swear Jar</title>
 
-		<link
-			href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
-			rel="stylesheet"
-		/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
+      rel="stylesheet"
+    />
 
-		<style>
-			h1 {
-				font-family: "Shadows Into Light", cursive;
-				text-align: center;
-			}
-			body {
-				font-family: "Courier New";
-				text-align: center;
-				margin: 0;
-				height: 100vh;
-				overflow: hidden; /* Prevent scrolling */
-				position: relative; /* Ensure that the circle is positioned relative to the body */
-				background-color: #f0f0f0;
-			}
-			#counter {
-				font-size: 36px;
-				margin: 20px;
-			}
-			button {
-				font-family: "Courier New";
-				padding: 10px 20px;
-				font-size: 20px;
-				cursor: pointer;
-				margin: 20px;
-			}
-			.circle {
-				width: 50px;
-				height: 50px;
-				border-radius: 50%;
-				position: absolute;
-				top: 0;
-				transform: translateX(-50%);
-				opacity: 0;
-				transition: opacity 0.5s;
-			}
-			.drop {
-				animation: drop 2s forwards;
-				opacity: 1;
-			}
-			@keyframes drop {
-				from {
-					top: 0;
-					opacity: 1;
-				}
-				to {
-					top: calc(100vh - 50px); /* Height of the circle */
-					opacity: 1;
-				}
-			}
+    <style>
+      h1 {
+        font-family: "Comic Sans", cursive;
+        text-align: center;
+      }
+      body {
+        font-family: "Courier New";
+        text-align: center;
+        margin: 0;
+        height: 100vh;
+        overflow: hidden; /* Prevent scrolling */
+        position: relative; /* Ensure that the circle is positioned relative to the body */
+        background-color: #f0f0f0;
+      }
+      #counter {
+        font-size: 36px;
+        margin: 20px;
+      }
+      button {
+        font-family: "Courier New";
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        margin: 20px;
+      }
+      .circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+      .drop {
+        animation: drop 2s forwards;
+        opacity: 1;
+      }
+      @keyframes drop {
+        from {
+          top: 0;
+          opacity: 1;
+        }
+        to {
+          top: calc(100vh - 50px); /* Height of the circle */
+          opacity: 1;
+        }
+      }
 
-			.stats-container {
-				display: flex; /* To arrange the items side by side */
-				justify-content: center;
-				gap: 150px; /* Optional: adds space between the two items */
-			}
-			.stats {
-				display: flex;
-				flex-direction: column; /* Ensures the content inside each item is vertical */
-				width: 150px;
-			}
-			.stats-text {
-				font-size: 20px;
-				font-weight: 600;
-			}
-			.stats-value {
-				font-size: 20px;
-			}
-		</style>
-	</head>
+      .stats-container {
+        display: flex; /* To arrange the items side by side */
+        justify-content: center;
+        gap: 150px; /* Optional: adds space between the two items */
+      }
+      .stats {
+        display: flex;
+        flex-direction: column; /* Ensures the content inside each item is vertical */
+        width: 150px;
+      }
+      .stats-text {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .stats-value {
+        font-size: 20px;
+      }
+    </style>
+  </head>
 
-	<body>
-		<h1>This is Christine's Swear Jar</h1>
+  <body>
+    <h1>This is Charley's Swear Jar</h1>
 
-		<div id="counter"></div>
-		<div class="stats-container">
-			<div class="stats">
-				<div class="stats-text">past week</div>
-				<div class="stats-value" id="past-week-counter"></div>
-			</div>
-			<div class="stats">
-				<div class="stats-text">yesterday</div>
-				<div class="stats-value" id="yesterday-counter"></div>
-			</div>
-			<div class="stats">
-				<div class="stats-text">today</div>
-				<div class="stats-value" id="today-counter"></div>
-			</div>
-		</div>
-		<button id="increment-button" onclick="increment()"></button>
+    <div id="counter"></div>
+    <div class="stats-container">
+      <div class="stats">
+        <div class="stats-text">past week</div>
+        <div class="stats-value" id="past-week-counter"></div>
+      </div>
+      <div class="stats">
+        <div class="stats-text">yesterday</div>
+        <div class="stats-value" id="yesterday-counter"></div>
+      </div>
+      <div class="stats">
+        <div class="stats-text">today</div>
+        <div class="stats-value" id="today-counter"></div>
+      </div>
+    </div>
+    <button id="increment-button" onclick="increment()"></button>
 
-		<script>
-			// Array of pastel colors because I like my circles those colors hehe
-			const pastelColors = [
-				"#a2c2e1", // Pastel Blue
-				"#d8a6d8", // Pastel Purple
-				"#f9c6d7", // Pastel Pink
-				"#B3CEE5", // Serenity
-				"F7CAC9", // Rose Quartz (Seventeen woo)
-			];
+    <script>
+      // Array of pastel colors because I like my circles those colors hehe
+      const pastelColors = [
+        "#a2c2e1", // Pastel Blue
+        "#d8a6d8", // Pastel Purple
+        "#f9c6d7", // Pastel Pink
+        "#B3CEE5", // Serenity
+        "F7CAC9", // Rose Quartz (Seventeen woo)
+      ];
 
-			function getRandomPastelColor() {
-				return pastelColors[
-					Math.floor(Math.random() * pastelColors.length)
-				];
-			}
+      function getRandomPastelColor() {
+        return pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      }
 
-			function getRandomXPosition() {
-				// want to narrow the X group position
-				const minX = window.innerWidth / 2 - window.innerWidth / 8;
-				const maxX = window.innerWidth / 2 + window.innerWidth / 8;
-				return Math.random() * (maxX - minX) + minX;
-			}
+      function getRandomXPosition() {
+        // want to narrow the X group position
+        const minX = window.innerWidth / 2 - window.innerWidth / 8;
+        const maxX = window.innerWidth / 2 + window.innerWidth / 8;
+        return Math.random() * (maxX - minX) + minX;
+      }
 
-			// a very nonsecure way to do user authorization
-			function verifyCookie(cookie) {
-				const parts = cookie.split("=");
-				if ((parts.length === 2) && (parts[0] === "incrementAccess") && (parts[1] === "true")) {
-					return true
-				}
+      // a very nonsecure way to do user authorization
+      function verifyCookie(cookie) {
+        const parts = cookie.split("=");
+        if (
+          parts.length === 2 &&
+          parts[0] === "incrementAccess" &&
+          parts[1] === "true"
+        ) {
+          return true;
+        }
 
-				return false
-			}
+        return false;
+      }
 
-			function increment() {
-				if (verifyCookie(document.cookie)) {
-					fetch("/api/increment")
-						.then((response) => {
-							if (!response.ok) {
-								throw new Error("Network response was not ok");
-							}
-							return response.json();
-						})
-						.then((data) => {
-							const total = data.total;
-							const today = data.today;
-							document.getElementById("counter").innerText = total;
-							document.getElementById("today-counter").innerText = today;
-						})
-						.catch((error) => {
-							console.error(
-								"There was a problem with the fetch operation when incremeneting:",
-								error
-							);
-						});
-				}
+      function increment() {
+        if (verifyCookie(document.cookie)) {
+          fetch("/api/increment")
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              const total = data.total;
+              const today = data.today;
+              document.getElementById("counter").innerText = total;
+              document.getElementById("today-counter").innerText = today;
+            })
+            .catch((error) => {
+              console.error(
+                "There was a problem with the fetch operation when incremeneting:",
+                error
+              );
+            });
+        }
 
-				/* Animations Stuff */
+        /* Animations Stuff */
 
-				// Create a new circle
-				const circle = document.createElement("div");
-				circle.className = "circle";
+        // Create a new circle
+        const circle = document.createElement("div");
+        circle.className = "circle";
 
-				// Set a random pastel color
-				circle.style.backgroundColor = getRandomPastelColor();
+        // Set a random pastel color
+        circle.style.backgroundColor = getRandomPastelColor();
 
-				// Set a random horizontal position
-				circle.style.left = `${getRandomXPosition()}px`;
+        // Set a random horizontal position
+        circle.style.left = `${getRandomXPosition()}px`;
 
-				document.body.appendChild(circle);
+        document.body.appendChild(circle);
 
-				// Trigger the animation
-				setTimeout(() => {
-					circle.classList.add("drop");
-				}, 10); // Small delay to ensure the element is added to the DOM before animation
-			}
+        // Trigger the animation
+        setTimeout(() => {
+          circle.classList.add("drop");
+        }, 10); // Small delay to ensure the element is added to the DOM before animation
+      }
 
-			window.onload = function () {
-				// adapt page for mobile devices
-				if (window.innerWidth < 768) {
-					statsContainer = document.querySelector(".stats-container");
-					statsContainer.style.flexDirection = "column";
-					statsContainer.style.alignItems = "center";
-					statsContainer.style.gap = "50px";
-				}
+      window.onload = function () {
+        // adapt page for mobile devices
+        if (window.innerWidth < 768) {
+          statsContainer = document.querySelector(".stats-container");
+          statsContainer.style.flexDirection = "column";
+          statsContainer.style.alignItems = "center";
+          statsContainer.style.gap = "50px";
+        }
 
-				fetch("/api/gettotal")
-					.then((response) => {
-						if (!response.ok) {
-							throw new Error("Network response was not ok");
-						}
-						return response.json();
-					})
-					.then((data) => {
-						const total = data.total;
-						const today = data.today;
-						document.getElementById("counter").innerText = total;
-						document.getElementById("today-counter").innerText = today;
-					})
-					.catch((error) => {
-						console.error(
-							"There was a problem with the fetch operation when loading the page:",
-							error
-						);
-					});
+        fetch("/api/gettotal")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const total = data.total;
+            const today = data.today;
+            document.getElementById("counter").innerText = total;
+            document.getElementById("today-counter").innerText = today;
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with the fetch operation when loading the page:",
+              error
+            );
+          });
 
-				fetch("/api/getstats")
-					.then((response) => {
-						if (!response.ok) {
-							throw new Error("Network response was not ok");
-						}
-						return response.json();
-					})
-					.then((data) => {
-						const pastweekValue = data.pastweek;
-						const yesterdayValue = data.yesterday;
+        fetch("/api/getstats")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const pastweekValue = data.pastweek;
+            const yesterdayValue = data.yesterday;
 
-						document.getElementById("past-week-counter").innerText = pastweekValue
-						document.getElementById("yesterday-counter").innerText = yesterdayValue
-					})
-					.catch((error) => {
-						console.error(
-							"There was a problem with the fetch operation when loading the page:",
-							error
-						);
-					})
+            document.getElementById("past-week-counter").innerText =
+              pastweekValue;
+            document.getElementById("yesterday-counter").innerText =
+              yesterdayValue;
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with the fetch operation when loading the page:",
+              error
+            );
+          });
 
-				if (verifyCookie(document.cookie)) {
-					document.getElementById("increment-button").innerText = "Increment";
-				} else {
-					document.getElementById("increment-button").innerText = "Drop Ball";
-				}
-			};
-		</script>
-	</body>
+        if (verifyCookie(document.cookie)) {
+          document.getElementById("increment-button").innerText = "Increment";
+        } else {
+          document.getElementById("increment-button").innerText = "Drop Ball";
+        }
+      };
+    </script>
+  </body>
 </html>

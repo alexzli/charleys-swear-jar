@@ -1,7 +1,7 @@
 package main
 
 import (
-	"christineswearjar/internal/handlers"
+	"charleyswearjar/internal/handlers"
 	"fmt"
 	"log"
 	"net/http"

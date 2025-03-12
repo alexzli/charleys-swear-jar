@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"christineswearjar/internal/pkg"
+	"charleyswearjar/internal/pkg"
 	"encoding/json"
 	"fmt"
 	"log"
